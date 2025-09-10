@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RUPArs Desain</title>
+<style>
+* {margin:0; padding:0; box-sizing:border-box; font-family: Arial, sans-serif;}
+body {
+    background: url('https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?auto=format&fit=crop&w=1470&q=80') no-repeat center center fixed;
+    background-size: cover;
+    color: #333;
+    scroll-behavior: smooth;
+}
+
+/* Header */
+header {
+    background-color: rgba(255,255,255,0.85);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    backdrop-filter: blur(5px);
+    transition: background 0.5s;
+}
+header img { height: 80px; }
+header h1 { font-size:2em; font-weight:bold; color:#0077b6; transition: transform 0.3s; }
+header:hover h1 { transform: scale(1.05); }
+
+/* Navbar */
+nav {
+    background-color: rgba(255,255,255,0.9);
+    display:flex; justify-content:center; gap:30px; padding:15px 0;
+}
+nav a { text-decoration:none; color:#333; font-weight:bold; transition:0.3s; }
+nav a:hover { color:#0077b6; transform: scale(1.1); }
+
+/* Section */
+section { 
+    background-color: rgba(255,255,255,0.85); 
+    margin:20px auto; padding:20px; border-radius:10px; 
+    max-width:1200px; transition: all 0.8s ease, background-color 1s ease; 
+    opacity:0; transform: translateY(30px);
+}
+section.visible { 
+    opacity:1; transform: translateY(0); background-color: rgba(255,255,255,0.95);
+}
+h2 { color:#0077b6; margin-bottom:15px; transition: transform 0.5s, opacity 0.5s; }
+h2.slide-left { transform: translateX(-50px); opacity:0; }
+h2.visible { transform: translateX(0); opacity:1; }
+
+/* Slider Portfolio */
+.slider { position: relative; overflow: hidden; border-radius:10px; margin-bottom:20px; }
+.slides { display: flex; transition: transform 0.7s ease-in-out; }
+.slide { min-width:100%; box-sizing:border-box; text-align:center; position:relative; overflow:hidden; transition: transform 0.3s; }
+.slide img { width:100%; border-radius:10px; transition: transform 0.5s; }
+.slide:hover img { transform: scale(1.05); }
+.slide p { position:absolute; bottom:0; width:100%; background:rgba(0,0,0,0.5); color:white; margin:0; padding:10px; text-align:center; font-weight:bold; opacity:0; transition:opacity 0.3s; border-radius:0 0 10px 10px;}
+.slide:hover p { opacity:1; }
+.slider-buttons { position:absolute; top:50%; width:100%; display:flex; justify-content:space-between; transform:translateY(-50%); }
+.slider-buttons button { background-color: rgba(0,0,0,0.5); border:none; color:white; font-size:2em; padding:10px; cursor:pointer; border-radius:50%; transition:0.3s; }
+.slider-buttons button:hover { background-color: rgba(0,0,0,0.8); transform: scale(1.1); }
+
+/* Info Arsitektur */
+.info-item { margin-bottom:15px; transition:0.3s, transform 0.3s; }
+.info-item:hover { background-color: rgba(0,119,182,0.1); padding:10px; border-radius:5px; transform: translateY(-5px); }
+
+/* Kontak Form */
+form { display:flex; flex-direction:column; gap:10px; }
+input, textarea { padding:10px; border-radius:5px; border:1px solid #ccc; width:100%; transition:0.3s; }
+input:focus, textarea:focus { border-color:#0077b6; outline:none; }
+button { background-color:#0077b6; color:white; padding:10px; border:none; border-radius:5px; cursor:pointer; transition:0.3s, transform 0.3s; }
+button:hover { background-color:#005f87; transform: scale(1.05); }
+
+/* Floating WhatsApp */
+.whatsapp { position:fixed; bottom:20px; right:20px; z-index:100; transition:0.5s; opacity:0; transform:translateY(50px); }
+.whatsapp.show { opacity:1; transform:translateY(0); }
+.whatsapp a { background-color:#25D366; color:white; border-radius:50%; padding:15px; font-size:24px; text-decoration:none; box-shadow:2px 2px 5px rgba(0,0,0,0.3); transition: transform 0.3s;}
+.whatsapp a:hover { background-color:#128C7E; transform:scale(1.2); }
+
+/* Popup Chat */
+.chat-popup { display:none; position:fixed; bottom:80px; right:20px; border:1px solid #ccc; z-index:101; background:white; width:300px; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.2); transition: all 0.5s; }
+.chat-header { background-color:#25D366; color:white; padding:10px; border-radius:10px 10px 0 0; font-weight:bold; display:flex; justify-content:space-between; align-items:center; }
+.chat-body { padding:10px; max-height:300px; overflow-y:auto; }
+.chat-footer { display:flex; gap:5px; padding:10px; }
+.chat-footer input { flex:1; padding:8px; border-radius:5px; border:1px solid #ccc; }
+.chat-footer button { background-color:#0077b6; color:white; border:none; padding:8px 12px; border-radius:5px; cursor:pointer; }
+.chat-footer button:hover { background-color:#005f87; }
+
+/* Footer */
+footer { text-align:center; padding:20px; background-color: rgba(255,255,255,0.9); margin-top:20px; }
+
+/* Responsive */
+@media(max-width:768px){ .slide img{height:auto;} .chat-popup{width:90%; } header {flex-direction: column;} }
+
+</style>
+</head>
+<body>
+
+<header>
+    <img src="logo-rupars.png" alt="Logo RUPArs">
+    <h1>RUPArs Desain</h1>
+</header>
+
+<nav>
+    <a href="#portfolio">Portfolio</a>
+    <a href="#info">Info Arsitektur</a>
+    <a href="#contact">Kontak</a>
+</nav>
+
+<section id="portfolio">
+    <h2 class="slide-left">Portfolio</h2>
+    <div class="slider">
+        <div class="slides">
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1505842465776-3d1d6b8f3b59?auto=format&fit=crop&w=800&q=80" alt="Project 1">
+                <p>Rumah Minimalis 2 Lantai dengan taman vertikal di halaman belakang.</p>
+            </div>
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80" alt="Project 2">
+                <p>Kantor Modern dengan konsep open space dan pencahayaan alami maksimal.</p>
+            </div>
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" alt="Project 3">
+                <p>Interior Cafe bergaya industrial dengan aksen kayu dan pencahayaan hangat.</p>
+            </div>
+        </div>
+        <div class="slider-buttons">
+            <button id="prev">&#10094;</button>
+            <button id="next">&#10095;</button>
+        </div>
+    </div>
+</section>
+
+<section id="info">
+    <h2 class="slide-left">Informasi Arsitektur</h2>
+    <div class="
